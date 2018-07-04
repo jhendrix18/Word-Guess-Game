@@ -1,10 +1,10 @@
 //  reference to dom elms. ============================================================================================================
 
-// var $newGameButton = getElementById('new-game-button');
-var $placeholders = getElementById('placeholders');
-var $guessedLetters = getElementById('guessed-letters');
-var $guessesLeft = getElementById('guesses-left');
-var $wins = getElementById('wins');
+var $newGameButton = document.getElementById('new-game-button');
+var $placeholders = document.getElementById('placeholders');
+var $guessedLetters = document.getElementById('guessed-letters');
+var $guessesLeft = document.getElementById('guesses-left');
+var $wins = document.getElementById('wins');
 var $losses = document.getElementById('losses');
 
 
@@ -23,7 +23,7 @@ var incorrectLetterBank = [];
 // Functions:================================================================================================================================
 
 function newGame() {
-    // make sure this resets game info for new game
+    // Resets all info for a new game. 
     gameRunning = true;
     guessesLeft = 8;
     guessedLetterBank = [];
@@ -31,79 +31,46 @@ function newGame() {
     pickedwordPlaceholderArr = [];
 
 
-    // pick a new word- technically the beginnnign of the game?
+    // picks a new word for our game
     pickedWord = wordBank[Math.floor(Math.random() * wordBank.length)];
 
-    // create placeholders out of new picked word. This isn't working..... why??!?!?
+    // create placeholders out of new picked word. Also, for loop written to identify if the character is a space, if so, push an empty
+    // space, if not, push an underscore or create an underline for the letter space
+    //QUESTION- why won't mine work? For some reason it wont push a space, seems to create an underscore for everything
 
     for (var i = 0; i < pickedWord.length; i++) {
         if(pickedWord[i] === ' ') {
-            pickedwordPlaceholderArr, push(' ');
+            pickedwordPlaceholderArr.push(' ');
         } else {
-            pickedwordPlaceholderArr, push('_');
+            pickedwordPlaceholderArr.push('_ ');
         }
     }
 
+    // Write all new game info to the DOM. Still not entirely sure what this means.... need to reseatch DOM elements. 
     $guessesLeft.textContent = guessesLeft;
-    $placeholders.textContent = pickedwordPlaceholderArr, join('');
+    $placeholders.textContent = pickedwordPlaceholderArr.join('');
     $guessedLetters.textContent = incorrectLetterBank;
-
 }
 
-// letterGuess function-- checking if the guessed letter is in the word to guess
+
+// Write letterGuess function, which takes in the letter the user guesses and sees if it is in the selected word
+//Two criteria- 1) is the gsame currently running? Don't want the logic running if we're not in the game
+// 2) has my letter already been guessed? Don't want to penalize users for mistaken keystrokes. 
+// Notes: if indexOf(letter) returns a -1, it means that letter is not in the letter bank (word)
 
 function letterGuess(letter) {
     console.log(letter);
 
-    if (gameRunning === true && guessedLetterBank.indexOf(letter) === -1) {    
-        guessedLetterBank.push(letter);
-
-        for (var i = 0; i < pickedWord.length; i++) {
-            if (pickedWord[i].toLowerCase[] === letter.toLowerCase()) {
-                pickedwordPlaceholderArr[i] === pickedWord[i];
-            }
-        }
-
-        $placeholders.textContent = pickedwordPlaceholderArr.join('');
-
-    } else {
+    if (gameRunning === true && guessedLetterBank.indexof(letter) === -1) {
+        // run game logic
+    } 
+    else {
         if (!gameRunning) {
-            alert('the game is not running, click new game button');
+            alert ("The game isn't running, click on new game button to start a new game");
         } else {
-            alert ('Yo- you guessed that already');
-        }
-    }    
-
-
-}
-
-    // check incorrect letter
-
-
-    // check for a loss
-
-
-    //check for a win
-
-
-    //add new game button
-
-    $newGameButton.addEventListener('click', newGame);
-
-    // key event to trigger the actual guess for letters (interesting find, 65 is the key code for A and 90 for Z)
-    document.onkeyup = function(event) {
-        console.dir(event);
-        if (event.keyCode >= 65 && event.keyCode <= 90) {
-            letterGuess(event.key);
+            alert ("You've already guessed that latter, try another one!")
         }
     }
+}
 
-
-
-
-
-
-
-
-
-// for some reason it doesn't like my getElementbyID and I can't seem to get around it...
+    $newGameButton.addEventListener('click', newGame);
