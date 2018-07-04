@@ -1,95 +1,117 @@
-<!DOCTYPE html>
-<html lang="">
+<!doctype html>
+<html lang="en">
 
 <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Online Hangman</title>
-    <link rel="stylesheet" href="Assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Gloria+Hallelujah' rel='stylesheet' type='text/css'>
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css" /> -->
+    <title>Hangman Game</title>
 </head>
 
 <body>
-
-    <div class="jumbotron-fluid background py-5">
-        <div class="container py-5">
-            <div class="row align-items"></div>
-            <div class="col-12 col-md-8 my-3">
-                <h1>Hangin with Homie</h1>
-                <button id="new-game-button">
-                    <!-- <i class="fas fa-gamepad"></i> -->
-                    Start a new game
-                </button>
-            </div>
-            <div class="col-12 col-md-4 my-3">
+    <!-- Navigation -->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">Hangman Game</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link remainingGuesses" href="#">Remaining guesses: 7</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link wins" href="#">Wins: 0</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link losses" href="#">Losses: 0</a>
+                    </li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 text-center py-5" id="placeholder-section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-md-6 my-3">
-                            <h2> fill these in!
-                                <br/>
-                                <span id="placeholders"></span>
-                            </h2>
-                        </div>
-                        <div class="col-12 col-md-6 my-3">
-                            <h2> Incorrect Letters Guesses
-                                <br/>
-                                <span id="guessed-letters"></span>
-                            </h2>
-                        </div>
+    </nav>
 
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="false" data-interval="false">
+        <div class="carousel-inner">
+            <div class="carousel-item active carousel-default-item" style="height: 200px;">
+                <img class="d-block w-100" src="assets/images/mooning.png" alt="First slide">
+                <div class="carousel-caption">
+                    <h3>Slide to expose a clue</h3>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 200px;">
+                <img class="d-block w-100" src="assets/images/mooning.png" alt="First slide">
+                <div class="carousel-caption">
+                    <h4>Clue #1</h4>
+                    <p class="clue1">This is a description for the first slide.</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 200px;">
+                <img class="d-block w-100" src="assets/images/mooning.png" alt="First slide">
+                <div class="carousel-caption">
+                    <h5>Clue #2</h5>
+                    <p class="clue2">This is a description for the first slide.</p>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 200px;">
+                <img class="d-block w-100" src="assets/images/mooning.png" alt="First slide">
+                <div class="carousel-caption">
+                    <h3>Clue #3</h3>
+                    <p class="clue3">This is a description for the first slide.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <br>
+        <div class="row">
+            <div class="col-lg-6 mb-6">
+                <div class="card h-100">
+                    <h4 class="card-header">And the Quote is...</h4>
+                    <div class="card-body">
+                        <!-- had to add white-space style as pre to preserve extra whitespace -->
+                        <p class="card-text phrase" style="white-space: pre;"></p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="#" class="btn btn-primary" id="getNextQuote">Get Next Quote</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-6">
+                <div class="card h-100">
+                    <h4 class="card-header">Press Any Key To Guess</h4>
+                    <div class="card-body">
+                        <p class="card-text">Keys Guessed: </p>
+                        <p class="card-text keysGuessed"></p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-md-4 text-center py-5">
-                <h3>
-                    Guesses Left: <span id="guesses-left">0</span>
-                </h3>
-            </div>
-            <div class="col-12 col-md-4 text-center py-5">
-                <h3>
-                    Wins: <span id="wins">0</span>
-                </h3>
-            </div>
-            <div class="col-12 col-md-4 text-center py-5">
-                <h3>
-                    Losses: <span id="losses">0</span>
-                </h3>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-
-    </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="Assets/JavaScript/game.js"></script>
-
-
+    <script type="text/javascript" src="Assets/JavaScript/game-2.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script>
 </body>
-
-
-<!-- Comments/notes:
-
-*for some reason, something just doesn't like my getElementById names and that breaks everything here, I'm pretty stuck.
-* There are also a few things missing, functionally, from my .js file but those are pseudo-coded within the document
-* pretty determined to work through this one completely but just got stuck in a few spots. Will continue to research and find the 
-    answers i need. 
--->
-
-
-
 
 </html>
